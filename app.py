@@ -4,10 +4,17 @@ import numpy as np
 import joblib
 
 # Load the trained model https://drive.google.com/file/d/1jEEJFekKusTcAyb7RPvd3K_j8EA4q9UN/view?usp=sharing 
-import joblib, gdown
+import gdown
+import os
+os.environ["GDOWN_CACHE_DIR"] = os.path.expanduser("~/.gdown_cache")
+# Google Drive model link 
 url = "https://drive.google.com/uc?id=1jEEJFekKusTcAyb7RPvd3K_j8EA4q9UN"
 output = "final_loan_model.joblib"
-gdown.download(url, output, quiet=False)
+
+# Download only once
+if not os.path.exists(output):
+    gdown.download(url, output, quiet=False, use_cookies=False)
+
 model = joblib.load(output)
 
 

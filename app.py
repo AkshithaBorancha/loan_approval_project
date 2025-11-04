@@ -3,8 +3,13 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Load the trained model
-model = joblib.load("final_loan_model.joblib")
+# Load the trained model https://drive.google.com/file/d/1jEEJFekKusTcAyb7RPvd3K_j8EA4q9UN/view?usp=sharing 
+import joblib, gdown
+url = "https://drive.google.com/uc?id=1jEEJFekKusTcAyb7RPvd3K_j8EA4q9UN"
+output = "final_loan_model.joblib"
+gdown.download(url, output, quiet=False)
+model = joblib.load(output)
+
 
 st.set_page_config(page_title="Loan Approval Predictor", page_icon="💰")
 

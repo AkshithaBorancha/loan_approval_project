@@ -54,12 +54,18 @@ features = pd.DataFrame([{
 
 # Prediction
 if st.button("🔍 Predict Loan Risk"):
-    prediction = model.predict(features)[0]
-    if prediction == 1:
-        st.error("⚠️ High Risk Borrower — Loan should be reviewed carefully!")
-    else:
-        st.success("✅ Safe Borrower — Loan likely to be approved.")
+    # Get predicted probabilities
+    probabilities = model.predict_proba(features)[0]
+    risk_prob = probabilities[1]  # Probability of being risky
 
-    # Show feature summary
+    # Custom threshold (tune this if needed)
+    threshold = 0.6  
+
+    if risk_prob > threshold:
+        st.error(f"⚠️ High Risk Borrower — Probability: {risk_prob:.2f}")
+    else:
+        st.success(f"✅ Safe Borrower — Probability: {risk_prob:.2f}")
+
+    # Display feature values and probability
     st.subheader("Feature Values Used for Prediction:")
     st.write(features)
